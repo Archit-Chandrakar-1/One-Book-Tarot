@@ -1,162 +1,174 @@
-import { useState } from "react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import {
+  Map, Zap, Clock, Heart, HelpCircle,
+  CircleDot, Briefcase, Calendar, Scale, Infinity, Sparkles
+} from 'lucide-react';
 
-const tarotCards = [
-  "The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor",
-  "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit",
-  "Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance",
-  "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgement", "The World",
+import Footer from './Footer';
+
+const spreads = [
+  {
+    title: "One-Card Spread",
+    count: "1 Card",
+    useCase: "Daily Guidance",
+    image: "/decks/onecardspread.png",
+    description: "The most direct way to get an answer, focus for the day, or a quick spark of intuition.",
+    icon: <Zap size={20} className="text-yellow-500" />
+  },
+  {
+    title: "Three-Card Spread",
+    count: "3 Cards",
+    useCase: "Past, Present, Future",
+    image: "/decks/Three-Cross.png",
+    description: "A foundational spread that helps you understand the timeline and trajectory of your current situation.",
+    icon: <Clock size={20} className="text-blue-500" />
+  },
+  {
+    title: "Celtic Cross Spread",
+    count: "10 Cards",
+    useCase: "Deep Life Analysis",
+    image: "/decks/celticcross.png",
+    description: "One of the most ancient and complex spreads, providing a 360-degree view of your life and external influences.",
+    icon: <Infinity size={20} className="text-purple-500" />
+  },
+  {
+    title: "Love / Relationship Spread",
+    count: "7 Cards",
+    useCase: "Partnership Analysis",
+    image: "/decks/lovespread.png",
+    description: "Perfect for understanding the dynamics between two people and finding a path toward emotional healing.",
+    icon: <Heart size={20} className="text-red-500" />
+  },
+  {
+    title: "Yes or No Spread",
+    count: "1 or 3 Cards",
+    useCase: "Direct Decisions",
+    image: "/decks/Yes-No.png",
+    description: "Provides a clear direction when you are at a crossroads and need immediate clarity.",
+    icon: <HelpCircle size={20} className="text-indigo-500" />
+  },
+  {
+    title: "Horseshoe Spread",
+    count: "7 Cards",
+    useCase: "Overcoming Obstacles",
+    image: "/decks/horsespread.png",
+    description: "Offers a broader perspective on obstacles, unseen influences, and the best way forward.",
+    icon: <CircleDot size={20} className="text-emerald-500" />
+  },
+  {
+    title: "Career / Money Spread",
+    count: "5 Cards",
+    useCase: "Professional Growth",
+    image: "/decks/CareerSpread.png",
+    description: "Focuses on your financial flow, career opportunities, and aligning your work with your purpose.",
+    icon: <Briefcase size={20} className="text-orange-500" />
+  },
+  {
+    title: "Decision-Making Spread",
+    count: "5 Cards",
+    useCase: "Choice Comparison",
+    image: "/decks/Decision-Spread.png",
+    description: "Compares two different paths to help you understand the potential outcomes of each choice.",
+    icon: <Scale size={20} className="text-sky-500" />
+  },
+  {
+    title: "Year Ahead Spread",
+    count: "12 Cards",
+    useCase: "Monthly Roadmap",
+    image: "/decks/YearSprea.png",
+    description: "A comprehensive 12-month outlook to help you align with the energy of each coming month.",
+    icon: <Calendar size={20} className="text-rose-500" />
+  },
+  {
+    title: "Chakra Spread",
+    count: "7 Cards",
+    useCase: "Energy Alignment",
+    image: "/decks/Chakra-Spread.png",
+    description: "Explores the state of your 7 chakras to identify energy blockages and emotional imbalances.",
+    icon: <Sparkles size={20} className="text-amber-500" />
+  }
 ];
 
-const zodiacSymbols = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
-
-const SPREAD_COUNT = 7;
-const cardAngles = [-24, -16, -8, 0, 8, 16, 24];
-const cardTranslateY = [30, 12, 2, 0, 2, 12, 30];
-
 const TarotCardSpread = () => {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [revealedCard, setRevealedCard] = useState<{ index: number; name: string } | null>(null);
-
-  const handleCardHover = (index: number) => {
-    setHoveredIndex(index);
-    if (revealedCard?.index !== index) {
-      const randomCard = tarotCards[Math.floor(Math.random() * tarotCards.length)];
-      setRevealedCard({ index, name: randomCard });
-    }
-  };
-
-  const handleCardLeave = () => {
-    setHoveredIndex(null);
-    setRevealedCard(null);
-  };
-
   return (
-    <section className="relative min-h-screen bg-hero-bg flex flex-col items-center justify-center overflow-hidden py-20">
-      {/* Background decorations */}
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-        <svg viewBox="0 0 1200 800" className="w-full h-full" fill="none" stroke="currentColor" strokeWidth="0.5">
-          <circle cx="600" cy="400" r="350" />
-          <circle cx="600" cy="400" r="300" />
-          <circle cx="600" cy="400" r="250" />
-          {Array.from({ length: 12 }).map((_, i) => {
-            const angle = (i * 30 * Math.PI) / 180;
-            return (
-              <line key={i} x1={600 + 250 * Math.cos(angle)} y1={400 + 250 * Math.sin(angle)} x2={600 + 350 * Math.cos(angle)} y2={400 + 350 * Math.sin(angle)} />
-            );
-          })}
-          {zodiacSymbols.map((s, i) => {
-            const angle = (i * 30 - 90) * (Math.PI / 180);
-            return (
-              <text key={i} x={600 + 380 * Math.cos(angle)} y={400 + 380 * Math.sin(angle)} textAnchor="middle" dominantBaseline="central" fontSize="18" fill="currentColor" stroke="none" opacity="0.6">
-                {s}
-              </text>
-            );
-          })}
-        </svg>
-      </div>
-
-      <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-4 relative z-10 text-center">
-        <em className="text-accent">Tarot</em>
-      </h2>
-      <p className="text-muted-foreground font-display tracking-[0.3em] uppercase text-sm mb-16 relative z-10">
-        Discover your Future
-      </p>
-
-      {/* Card spread */}
-      <div className="relative z-10 flex items-end justify-center h-[420px] w-full max-w-[800px]">
-        {Array.from({ length: SPREAD_COUNT }).map((_, i) => {
-          const isHovered = hoveredIndex === i;
-          const isRevealed = revealedCard?.index === i;
-
-          return (
-            <div
-              key={i}
-              className="absolute transition-all duration-500 ease-out cursor-pointer"
-              style={{
-                transform: `rotate(${cardAngles[i]}deg) translateY(${isHovered ? cardTranslateY[i] - 40 : cardTranslateY[i]}px) ${isHovered ? "scale(1.08)" : "scale(1)"}`,
-                zIndex: isHovered ? 20 : 10 - Math.abs(i - 3),
-                left: `${50 + (i - 3) * 8}%`,
-                transformOrigin: "bottom center",
-                marginLeft: "-75px",
-              }}
-              onMouseEnter={() => handleCardHover(i)}
-              onMouseLeave={handleCardLeave}
+    <>
+      <div className="min-h-screen bg-[#F8F9FA] pt-32 pb-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <header className="mb-20 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="w-16 h-16 bg-white rounded-full border border-neutral-200 flex items-center justify-center mx-auto mb-6 shadow-sm"
             >
-              <div
-                className={`relative w-[150px] h-[260px] md:w-[180px] md:h-[310px] rounded-lg border-2 transition-all duration-500 ${
-                  isHovered
-                    ? "border-accent shadow-[0_0_30px_rgba(196,162,101,0.4)]"
-                    : "border-accent/30"
-                } ${isRevealed ? "bg-foreground" : "bg-hero-bg"}`}
-                style={{
-                  perspective: "1000px",
-                }}
+              <Map className="text-neutral-900" size={28} />
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight"
+            >
+              Sacred <span className="text-neutral-400 font-light italic">Spreads</span>
+            </motion.h1>
+            <p className="text-neutral-400 mt-4 text-sm uppercase tracking-[0.3em] font-bold">Choosing your roadmap to clarity</p>
+          </header>
+
+          <div className="grid grid-cols-1 gap-12">
+            {spreads.map((spread, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                // INCREASED PADDING: Changed p-6/p-10 to py-16 px-8/px-12
+                className="bg-white rounded-[4rem] border border-neutral-200/60 py-16 px-8 md:px-12 flex flex-col lg:flex-row gap-12 items-center hover:shadow-2xl hover:shadow-black/5 transition-all group"
               >
-                {/* Inner border */}
-                <div className={`absolute inset-2 rounded border transition-colors duration-500 ${isRevealed ? "border-accent/60" : "border-accent/20"}`}>
-                  {/* Corner decorations */}
-                  {[
-                    "top-1 left-1", "top-1 right-1 rotate-90",
-                    "bottom-1 left-1 -rotate-90", "bottom-1 right-1 rotate-180",
-                  ].map((pos, idx) => (
-                    <div key={idx} className={`absolute ${pos} w-4 h-4`}>
-                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1" className={`w-full h-full ${isRevealed ? "text-accent" : "text-accent/30"}`}>
-                        <path d="M0 10 Q0 0 10 0" />
-                      </svg>
-                    </div>
-                  ))}
 
-                  {isRevealed ? (
-                    /* Revealed card face */
-                    <div className="flex flex-col items-center justify-center h-full text-center p-3 animate-fade-in">
-                      <span className="text-accent text-3xl mb-2">✦</span>
-                      <p className="font-display text-accent text-sm md:text-base tracking-wider leading-tight">
-                        {revealedCard.name}
-                      </p>
-                      <div className="mt-3 w-8 h-px bg-accent/40" />
-                      <span className="text-accent/60 text-xs mt-2 font-display">
-                        {zodiacSymbols[Math.floor(Math.random() * zodiacSymbols.length)]}
-                      </span>
-                    </div>
-                  ) : (
-                    /* Card back design */
-                    <div className="flex items-center justify-center h-full">
-                      <div className="relative">
-                        {/* Mandala-like pattern */}
-                        <svg viewBox="0 0 100 100" className="w-20 h-20 md:w-24 md:h-24 text-accent/30" fill="none" stroke="currentColor" strokeWidth="0.8">
-                          <circle cx="50" cy="50" r="40" />
-                          <circle cx="50" cy="50" r="30" />
-                          <circle cx="50" cy="50" r="20" />
-                          <circle cx="50" cy="50" r="8" />
-                          {Array.from({ length: 8 }).map((_, j) => {
-                            const a = (j * 45 * Math.PI) / 180;
-                            return (
-                              <g key={j}>
-                                <line x1={50 + 20 * Math.cos(a)} y1={50 + 20 * Math.sin(a)} x2={50 + 40 * Math.cos(a)} y2={50 + 40 * Math.sin(a)} />
-                                <circle cx={50 + 35 * Math.cos(a)} cy={50 + 35 * Math.sin(a)} r="3" />
-                              </g>
-                            );
-                          })}
-                          {Array.from({ length: 12 }).map((_, j) => {
-                            const a = (j * 30 * Math.PI) / 180;
-                            return <circle key={j} cx={50 + 25 * Math.cos(a)} cy={50 + 25 * Math.sin(a)} r="1.5" fill="currentColor" />;
-                          })}
-                        </svg>
-                      </div>
-                    </div>
-                  )}
+                {/* IMAGE SECTION: Updated aspect-video to aspect-[4/3] for 30% more height */}
+                <div className="w-full lg:w-1/2 aspect-[4/3] rounded-[2.5rem] overflow-hidden relative border border-neutral-100 shadow-inner bg-neutral-200">
+                  <img
+                    src={spread.image}
+                    alt={spread.title}
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://images.unsplash.com/photo-1572916120286-da759299335c?q=80&w=800";
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500" />
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
 
-      {/* Instruction text */}
-      <p className="relative z-10 mt-12 text-muted-foreground/60 text-sm font-display tracking-widest animate-pulse">
-        ✨ Hover & click a card to reveal your fate ✨
-      </p>
-    </section>
+                {/* Text Section: Increased space-y to 8 for better vertical balance */}
+                <div className="w-full lg:w-1/2 space-y-8 text-center lg:text-left">
+                  <div className="flex items-center justify-center lg:justify-start gap-4">
+                    <div className="p-4 bg-neutral-50 rounded-2xl border border-neutral-100 group-hover:rotate-12 transition-transform duration-500">
+                      {spread.icon}
+                    </div>
+                    <span className="text-neutral-400 font-black text-[10px] uppercase tracking-[0.2em]">{spread.count} Layout</span>
+                  </div>
+
+                  <div>
+                    <h2 className="text-4xl font-bold text-neutral-900 mb-3 tracking-tight">{spread.title}</h2>
+                    <p className="text-purple-600 font-bold text-[11px] uppercase tracking-[0.25em]">{spread.useCase}</p>
+                  </div>
+
+                  <p className="text-neutral-500 leading-relaxed text-base max-w-md mx-auto lg:mx-0">
+                    {spread.description}
+                  </p>
+
+                  <div className="pt-6 flex justify-center lg:justify-start">
+                    <button className="text-[11px] font-black uppercase tracking-[0.4em] text-neutral-900 border-b-2 border-black pb-2 hover:text-purple-600 hover:border-purple-600 transition-all hover:translate-x-1 duration-300">
+                      Request this Session
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 

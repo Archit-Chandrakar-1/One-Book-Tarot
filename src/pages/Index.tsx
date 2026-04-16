@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import SocialSidebar from "@/components/SocialSidebar";
 import StarCursor from "@/components/StarCursor";
-import TarotCardSpread from "@/components/TarotCardSpread";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -11,7 +11,8 @@ const Index = () => {
       <Navbar />
       <SocialSidebar />
       <HeroSection />
-      <TarotCardSpread />
+
+
     </main>
   );
 };

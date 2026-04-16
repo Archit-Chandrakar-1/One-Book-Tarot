@@ -17,7 +17,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-hero-bg overflow-hidden flex items-center justify-center">
+    <section className="relative min-h-screen bg-hero-bg overflow-hidden flex items-center justify-center pt-24 lg:pt-32">
       {/* Zodiac background decorations */}
       <div className="absolute inset-0 opacity-[0.06] pointer-events-none">
         <svg viewBox="0 0 1200 800" className="w-full h-full" fill="none" stroke="currentColor" strokeWidth="0.5">
@@ -54,10 +54,10 @@ const HeroSection = () => {
       </div>
 
       {/* Main content grid */}
-      <div className="relative w-full max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-0 min-h-[80vh]">
-        
+      <div className="relative w-full max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] items-center gap-6 lg:gap-12 xl:gap-20 min-h-[80vh]">
+
         {/* Left text */}
-        <div className="relative z-10 text-right lg:text-left lg:pr-0">
+        <div className="relative z-10 mt-15 text-right lg:text-left lg:pr-0">
           <h1 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-foreground tracking-tight">
             The Secrets of
             <br />
@@ -71,15 +71,16 @@ const HeroSection = () => {
             <br />
             Future with Cards
           </h2>
-          <p className="mt-6 text-sm md:text-base leading-relaxed text-muted-foreground max-w-sm">
+          {/* <p className="mt-6 text-sm md:text-base leading-relaxed text-muted-foreground max-w-sm">
             Step into the mystical world of tarot and uncover the secrets that the future holds. Let our experienced fortune teller guide you through the cards, revealing insights and wisdom tailored just for you.
-          </p>
+          </p> */}
         </div>
 
         {/* Center carousel */}
-        <div className="relative z-20 flex justify-center items-center">
+        <div className="relative z-20 mt-20flex justify-center items-center">
           {/* Circle background */}
-          <div className="w-[320px] h-[320px] md:w-[400px] md:h-[400px] lg:w-[460px] lg:h-[460px] bg-hero-circle rounded-2xl overflow-hidden relative">
+          <div className="w-[340px] h-[450px] md:w-[420px] md:h-[560px] lg:w-[500px] lg:h-[650px] bg-hero-circle rounded-2xl overflow-hidden relative shadow-2xl">
+
             {images.map((img, index) => (
               <img
                 key={index}
@@ -110,9 +111,8 @@ const HeroSection = () => {
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  currentIndex === index ? "bg-accent w-6" : "bg-foreground/30"
-                }`}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "bg-accent w-6" : "bg-foreground/30"
+                  }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
@@ -121,13 +121,15 @@ const HeroSection = () => {
 
         {/* Right text */}
         <div className="relative z-10 lg:pl-0">
-          <h2 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-foreground tracking-tight">
+          <h2 className="font-display text-5xl  md:text-6xl lg:text-7xl xl:text-8xl font-normal leading-[0.95] text-foreground tracking-tight">
             Discover Your
             <br />
             Destiny
             <br />
             <em className="italic">with Stars</em>
           </h2>
+
+
         </div>
       </div>
     </section>
