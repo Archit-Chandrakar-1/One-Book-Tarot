@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar.tsx";
 import Footer from "./components/Footer.tsx";
 import BookingForm from "./components/booking-form.tsx";
 import AboutMe from "./components/About.tsx";
+import TarotSpread from "./components/TarotSpread.tsx";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const queryClient = new QueryClient();
 const Home = () => (
   <>
     <Index />
+    <TarotSpread />
     <AboutMe />
     <ServicesGrid />
     <ServicesHighlight />

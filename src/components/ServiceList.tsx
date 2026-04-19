@@ -3,6 +3,7 @@ import {
     Sparkles, Hash, Gem, GraduationCap, Heart,
     Users, Wind, Briefcase, Sun, HelpCircle, Flame
 } from 'lucide-react';
+import { motion } from "framer-motion";
 
 const services = [
     {
@@ -103,45 +104,71 @@ const services = [
 
 const ServicesGrid = () => {
     return (
-        <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div className="relative py-20 px-4 sm:px-6 lg:px-8 bg-black overflow-hidden">
+
+            {/* 🌌 Background Glow */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(168,85,247,0.15),transparent_40%),radial-gradient(circle_at_80%_70%,rgba(236,72,153,0.15),transparent_40%)]"></div>
+
+            <div className="relative max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+
                     {services.map((service, index) => (
-                        <div
+                        <motion.div
                             key={index}
-                            className="group relative bg-white border border-gray-200 rounded-2xl p-8 transition-all duration-300 ease-in-out hover:bg-black hover:scale-[1.02] hover:shadow-2xl cursor-pointer"
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.08 }}
+                            whileHover={{ scale: 1.05 }}
+                            className="group relative"
                         >
-                            {/* Popular Badge */}
-                            {service.popular && (
-                                <div className="absolute top-4 right-4 bg-black text-white group-hover:bg-white group-hover:text-black px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors duration-300">
-                                    Popular
-                                </div>
-                            )}
 
-                            {/* Icon Container */}
-                            <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-zinc-800 group-hover:text-white transition-colors duration-300">
-                                {service.icon}
-                            </div>
+                            {/* ✨ Glow Border */}
+                            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-indigo-500 opacity-20 group-hover:opacity-70 blur transition duration-500"></div>
 
-                            {/* Title */}
-                            <h3 className="text-xl font-bold text-gray-900 group-hover:text-white mb-4 transition-colors duration-300">
-                                {service.title}
-                            </h3>
+                            {/* 🃏 Card */}
+                            <div className="relative bg-white/5 backdrop-blur-xl border border-white/10  p-6 h-full transition-all duration-500 group-hover:bg-white/10">
 
-                            {/* Pricing Items */}
-                            <div className="space-y-3">
-                                {service.items.map((item, i) => (
-                                    <div key={i} className="flex flex-col">
-                                        <span className="text-sm text-gray-500 group-hover:text-zinc-400 transition-colors duration-300">
-                                            {item.label}
-                                        </span>
-                                        <span className="text-md font-semibold text-gray-800 group-hover:text-white transition-colors duration-300">
-                                            ₹{item.price}
-                                        </span>
+                                {/* Popular Badge */}
+                                {service.popular && (
+                                    <div className="absolute top-4 right-4 text-[10px] px-3 py-1 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 text-black font-semibold tracking-wider">
+                                        POPULAR
                                     </div>
-                                ))}
+                                )}
+
+                                {/* 🔮 Icon */}
+                                <div className="w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 text-purple-300 mb-6 group-hover:rotate-6 transition duration-500">
+                                    {service.icon}
+                                </div>
+
+                                {/* Title */}
+                                <h3 className="text-lg font-semibold text-white mb-4 tracking-wide">
+                                    {service.title}
+                                </h3>
+
+                                {/* Divider */}
+                                <div className="w-10 h-[1px] bg-gradient-to-r from-purple-400 to-pink-400 mb-4 opacity-60"></div>
+
+                                {/* Pricing */}
+                                <div className="space-y-3">
+                                    {service.items.map((item, i) => (
+                                        <div key={i} className="flex justify-between items-center">
+                                            <span className="text-sm text-zinc-400">
+                                                {item.label}
+                                            </span>
+                                            <span className="text-md font-semibold text-white">
+                                                ₹{item.price}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* 🌟 Hover Glow Effect */}
+                                <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 blur-xl"></div>
+                                </div>
+
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>
