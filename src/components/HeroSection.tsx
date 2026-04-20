@@ -4,7 +4,7 @@ import carousel2 from "@/assets/carousel-2.jpg";
 import carousel3 from "@/assets/carousel-3.jpg";
 import jupiter from "@/assets/planet-jupiter.png";
 
-const images = [carousel1, carousel2, carousel3];
+const images = [carousel1,];
 
 const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
