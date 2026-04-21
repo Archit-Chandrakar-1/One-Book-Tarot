@@ -22,7 +22,7 @@ const AboutMe = () => {
                         <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] shadow-2xl border-[12px] border-white">
                             {/* Replace the src with your actual photo path in the /public folder */}
                             <img
-                                src="/decks/About-Me.jpeg"
+                                src="/decks/Journet.jpeg"
                                 alt="Meenakshi - One Book Tarot"
                                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                                 onError={(e) => {
