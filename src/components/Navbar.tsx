@@ -30,11 +30,14 @@ const Navbar = () => {
         {/* Branding Area */}
         <Link to="/" className="text-white flex items-center gap-3 group">
           <div className="w-8 h-8 flex items-center justify-center">
-            <Sparkles className="text-purple-400 group-hover:rotate-12 transition-transform" />
+            {/* <Sparkles className="text-purple-400 group-hover:rotate-12 transition-transform" /> */}
           </div>
-          <span className="text-xs md:text-sm tracking-widest uppercase font-light">
-            One Book <span className="font-bold">Tarot</span>
-          </span>
+
+          <img
+            src="/service/Logo.png"
+            alt="One Book Tarot Logo"
+            className="h-10 md:h-14 object-contain"
+          />
         </Link>
 
         {/* Desktop Links */}
